@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ramos Academy — Free Learning for Everyone</title>
+<style>
+  :root{
+    --navy:#0F2540; --gold:#C9A86A; --cream:#FAF8F5;
+    --ink:#0F2540cc; --line:#0F254022;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:var(--cream);color:var(--navy);line-height:1.6}
+  h1,h2,h3{font-family:Georgia,'Times New Roman',serif;letter-spacing:-0.02em}
+  a{color:inherit;text-decoration:none}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+
+  /* NAV */
+  nav{position:sticky;top:0;z-index:50;background:var(--cream)ee;backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+  .logo{font-family:Georgia,serif;font-weight:700;font-size:20px;display:flex;align-items:center;gap:8px}
+  .logo .dot{width:8px;height:8px;border-radius:50%;background:var(--gold)}
+  nav ul{display:flex;gap:28px;list-style:none;font-size:14px;font-weight:500}
+  nav ul a:hover{color:var(--gold)}
+  .btn{background:var(--navy);color:var(--cream);padding:9px 18px;border-radius:8px;font-size:14px;font-weight:600}
+  .btn:hover{background:#173257}
+  .btn-ghost{border:1px solid var(--line);padding:8px 17px;border-radius:8px;font-size:14px;font-weight:600}
+
+  /* HERO */
+  header.hero{padding:72px 0 56px;background:radial-gradient(120% 80% at 50% 0%, #C9A86A22, transparent 60%)}
+  .eyebrow{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:16px}
+  .hero h1{font-size:44px;line-height:1.05;max-width:14ch}
+  .hero p{margin-top:18px;max-width:44ch;font-size:17px;color:var(--ink)}
+  .hero-cta{display:flex;gap:12px;margin-top:28px;flex-wrap:wrap}
+
+  /* STATS */
+  .stats{display:flex;gap:40px;margin-top:48px;flex-wrap:wrap}
+  .stat b{display:block;font-size:28px;font-family:Georgia,serif}
+  .stat span{font-size:13px;color:var(--ink)}
+
+  /* SUBJECTS */
+  section{padding:56px 0}
+  .section-head{margin-bottom:32px}
+  .section-head h2{font-size:30px}
+  .section-head p{color:var(--ink);margin-top:8px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;transition:transform .15s, box-shadow .15s}
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 30px #0F254014}
+  .card .icon{width:44px;height:44px;border-radius:10px;background:#C9A86A26;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:14px}
+  .card h3{font-size:17px;margin-bottom:6px}
+  .card p{font-size:13.5px;color:var(--ink)}
+  .card .meta{margin-top:12px;font-size:12px;color:var(--gold);font-weight:600}
+
+  /* HOW IT WORKS */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
+  .step b{font-family:Georgia,serif;font-size:22px;color:var(--gold)}
+  .step h3{margin:8px 0 6px;font-size:16px}
+  .step p{font-size:13.5px;color:var(--ink)}
+
+  /* CTA BAND */
+  .cta-band{background:var(--navy);color:var(--cream);border-radius:24px;padding:48px 32px;text-align:center;margin:0 20px}
+  .cta-band h2{font-size:28px;color:#fff}
+  .cta-band p{margin-top:10px;color:#ffffffb3;max-width:40ch;margin-left:auto;margin-right:auto}
+  .cta-band .btn{background:var(--gold);color:var(--navy);margin-top:22px;display:inline-block}
+
+  /* FOOTER */
+  footer{padding:40px 0 32px;border-top:1px solid var(--line);margin-top:40px}
+  footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+  footer p{font-size:13px;color:var(--ink)}
+  footer ul{display:flex;gap:20px;list-style:none;font-size:13px}
+
+  @media(max-width:640px){
+    .hero h1{font-size:32px}
+    .cta-band{margin:0}
+    nav ul{display:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <div class="logo"><span class="dot"></span>Ramos Academy</div>
+    <ul>
+      <li><a href="#subjects">Subjects</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#about">About</a></li>
+    </ul>
+    <div style="display:flex;gap:10px">
+      <a class="btn-ghost" href="#">Log in</a>
+      <a class="btn" href="#">Start learning</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Free, forever, for everyone</div>
+    <h1>Learn anything. At your own pace.</h1>
+    <p>Ramos Academy is a free library of courses, lessons, and practice exercises — built to help anyone, anywhere, master a subject at their own speed.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#subjects">Browse subjects</a>
+      <a class="btn-ghost" href="#how">How it works</a>
+    </div>
+    <div class="stats">
+      <div class="stat"><b>12</b><span>Subject areas</span></div>
+      <div class="stat"><b>100%</b><span>Free access</span></div>
+      <div class="stat"><b>24/7</b><span>Self-paced</span></div>
+    </div>
+  </div>
+</header>
+
+<section id="subjects">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Subjects</h2>
+      <p>Pick a subject and start wherever you are — no prerequisites, no pressure.</p>
+    </div>
+    <div class="grid">
+      <div class="card"><div class="icon">∑</div><h3>Mathematics</h3><p>Arithmetic through calculus, taught step by step.</p><div class="meta">Beginner → Advanced</div></div>
+      <div class="card"><div class="icon">⚛</div><h3>Science</h3><p>Physics, chemistry, and biology with real-world examples.</p><div class="meta">Beginner → Advanced</div></div>
+      <div class="card"><div class="icon">💻</div><h3>Computing</h3><p>Programming fundamentals, logic, and computer science basics.</p><div class="meta">Beginner → Intermediate</div></div>
+      <div class="card"><div class="icon">📖</div><h3>Language Arts</h3><p>Reading, grammar, and writing skills for every level.</p><div class="meta">All levels</div></div>
+      <div class="card"><div class="icon">🌍</div><h3>History & Civics</h3><p>World history, government, and civic understanding.</p><div class="meta">Beginner → Advanced</div></div>
+      <div class="card"><div class="icon">💰</div><h3>Economics & Finance</h3><p>Personal finance, markets, and economic principles.</p><div class="meta">Beginner → Intermediate</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How it works</h2>
+      <p>Three steps. No sign-up required to start.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><b>01</b><h3>Pick a subject</h3><p>Choose from any subject area — start from scratch or jump to your level.</p></div>
+      <div class="step"><b>02</b><h3>Learn at your pace</h3><p>Work through lessons and practice exercises whenever suits you.</p></div>
+      <div class="step"><b>03</b><h3>Track your progress</h3><p>See what you've mastered and what's next, all in one place.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="cta-band">
+    <h2>Education shouldn't have a price tag.</h2>
+    <p>Ramos Academy exists to make quality learning accessible to anyone with curiosity and time.</p>
+    <a class="btn" href="#subjects">Start learning free</a>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>© 2026 Ramos Academy. Free education for everyone.</p>
+    <ul>
+      <li><a href="#subjects">Subjects</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="https://github.com/newssungoldentoday-dev/ramos-academy">GitHub</a></li>
+    </ul>
+  </div>
+</footer>
+
+</body>
+  </html>
