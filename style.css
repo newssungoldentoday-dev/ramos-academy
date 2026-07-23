@@ -101,6 +101,44 @@ section{padding:56px 0}
 .tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--cream);border:1px solid var(--line);color:var(--ink)}
 .tag-core{background:#C9A86A26;color:var(--gold);border-color:transparent}
 
+/* 404 */
+.error-page{text-align:center;padding:100px 20px}
+.error-page .code{font-family:Georgia,serif;font-size:100px;color:var(--gold);line-height:1}
+.error-page h1{font-size:26px;margin-top:10px}
+.error-page p{color:var(--ink);margin-top:10px}
+
+/* LEGAL */
+.legal{max-width:720px;margin:0 auto}
+.legal h1{font-size:32px}
+.legal .updated{color:var(--ink);font-size:13px;margin-top:8px}
+.legal h2{font-size:19px;margin-top:32px;margin-bottom:10px}
+.legal p,.legal li{font-size:14.5px;color:var(--ink);margin-top:8px}
+.legal ul{padding-left:20px}
+
+/* SEARCH */
+.search-bar{display:flex;gap:10px;max-width:520px}
+.search-bar input{flex:1;padding:12px 14px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:#fff}
+.search-bar input:focus{outline:none;border-color:var(--gold)}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.result-row h3{font-size:15.5px}
+.result-row p{font-size:13px;color:var(--ink);margin-top:2px}
+.result-tag{font-size:11px;font-weight:600;color:var(--gold);background:#C9A86A26;padding:3px 9px;border-radius:99px}
+
+/* CONTACT FORM */
+textarea{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:8px;font-size:14px;background:var(--cream);font-family:inherit;resize:vertical}
+textarea:focus{outline:none;border-color:var(--gold)}
+
+/* DASHBOARD */
+.dash-layout{display:grid;grid-template-columns:220px 1fr;gap:28px;align-items:start}
+.dash-nav{border:1px solid var(--line);border-radius:14px;background:#fff;padding:10px}
+.dash-nav a{display:block;padding:10px 12px;border-radius:8px;font-size:14px;font-weight:500}
+.dash-nav a:hover{background:var(--cream)}
+.dash-nav a.active{background:var(--navy);color:var(--cream)}
+.profile-head{display:flex;align-items:center;gap:14px;margin-bottom:24px}
+.avatar{width:52px;height:52px;border-radius:50%;background:var(--navy);color:var(--cream);display:flex;align-items:center;justify-content:center;font-family:Georgia,serif;font-size:20px}
+.dash-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+@media(max-width:640px){.dash-layout{grid-template-columns:1fr}}px
+
 /* FOOTER */
 footer{padding:40px 0 32px;border-top:1px solid var(--line);margin-top:40px}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
