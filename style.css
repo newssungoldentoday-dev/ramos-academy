@@ -94,6 +94,13 @@ section{padding:56px 0}
 .auth-fine{font-size:12.5px;text-align:center;margin-top:18px;color:var(--ink)}
 .auth-fine a{color:var(--gold);font-weight:600}
 
+/* COUNTRY CARDS */
+.flag{font-size:34px;margin-bottom:10px}
+.country-card{text-align:center}
+.badge-row{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:11px;font-weight:600;padding:3px 9px;border-radius:99px;background:var(--cream);border:1px solid var(--line);color:var(--ink)}
+.tag-core{background:#C9A86A26;color:var(--gold);border-color:transparent}
+
 /* FOOTER */
 footer{padding:40px 0 32px;border-top:1px solid var(--line);margin-top:40px}
 footer .wrap{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
