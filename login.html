@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Log in — Ramos Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot"></span>Ramos Academy</a>
+    <div></div>
+    <div></div>
+  </div>
+</nav>
+
+<div class="auth-wrap">
+  <div class="auth-toggle">
+    <button id="tabLogin" class="active" onclick="showTab('login')">Log in</button>
+    <button id="tabSignup" onclick="showTab('signup')">Sign up</button>
+  </div>
+
+  <div id="loginForm">
+    <h1>Welcome back</h1>
+    <p class="sub">Log in to continue where you left off.</p>
+    <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+    <div class="field"><label>Password</label><input type="password" placeholder="••••••••"></div>
+    <button class="btn btn-block" style="margin-top:22px">Log in</button>
+    <p class="auth-fine"><a href="#">Forgot password?</a></p>
+  </div>
+
+  <div id="signupForm" style="display:none">
+    <h1>Create your account</h1>
+    <p class="sub">Free forever. No credit card needed.</p>
+    <div class="field"><label>Name</label><input type="text" placeholder="Juan Dela Cruz"></div>
+    <div class="field"><label>Email</label><input type="email" placeholder="you@example.com"></div>
+    <div class="field"><label>Password</label><input type="password" placeholder="At least 8 characters"></div>
+    <button class="btn btn-block" style="margin-top:22px">Create account</button>
+  </div>
+
+  <div class="auth-divider"><hr>or<hr></div>
+  <button class="btn-ghost btn-block">Continue with Google</button>
+
+  <p class="auth-fine">By continuing, you agree to Ramos Academy's Terms & Privacy Policy.</p>
+</div>
+
+<script>
+function showTab(tab){
+  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+}
+</script>
+
+</body>
+                                             </html>
