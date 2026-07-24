@@ -66,7 +66,10 @@
     </aside>
 
   </div>
+  <a href="lessons.html?id=${s.id}">
 </section>
+
+
 <script src="lessons-url.js"></script>
 <script>
 const params = new URLSearchParams(window.location.search);
@@ -116,6 +119,9 @@ function checkAnswer() {
   } else {
     feedback.textContent = "Not quite — try again.";
     feedback.style.color = "crimson";
+  }
+  document.getElementById("prevLink").href = lesson.prev ? `lessons.html?id=${lesson.prev}` : "#";
+  document.getElementById("nextLink").href = lesson.next ? `lessons.html?id=${lesson.next}` : "#";
   }
 }
 </script>
