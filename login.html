@@ -46,13 +46,74 @@
   <p class="auth-fine">By continuing, you agree to Ramos Academy's Terms & Privacy Policy.</p>
 </div>
 
-<script>
-function showTab(tab){
-  document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
-  document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
-  document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
-  document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
-}
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import {
+    getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword,
+    signInWithPopup, GoogleAuthProvider, updateProfile, onAuthStateChanged
+  } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const googleProvider = new GoogleAuthProvider();
+
+  window.showTab = function(tab) {
+    document.getElementById('loginForm').style.display = tab === 'login' ? 'block' : 'none';
+    document.getElementById('signupForm').style.display = tab === 'signup' ? 'block' : 'none';
+    document.getElementById('tabLogin').classList.toggle('active', tab === 'login');
+    document.getElementById('tabSignup').classList.toggle('active', tab === 'signup');
+  };
+
+  function showError(msg) {
+    let el = document.getElementById('authError');
+    if (!el) {
+      el = document.createElement('p');
+      el.id = 'authError';
+      el.style.cssText = 'color:crimson;font-size:13px;text-align:center;margin-top:14px';
+      document.querySelector('.auth-wrap').appendChild(el);
+    }
+    el.textContent = msg;
+  }
+
+  document.querySelector('#loginForm .btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const email = document.querySelector('#loginForm input[type="email"]').value;
+    const password = document.querySelector('#loginForm input[type="password"]').value;
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      showError(err.message.replace('Firebase: ', ''));
+    }
+  });
+
+  document.querySelector('#signupForm .btn').addEventListener('click', async (e) => {
+    e.preventDefault();
+    const name = document.querySelector('#signupForm input[type="text"]').value;
+    const email = document.querySelector('#signupForm input[type="email"]').value;
+    const password = document.querySelector('#signupForm input[type="password"]').value;
+    try {
+      const cred = await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(cred.user, { displayName: name });
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      showError(err.message.replace('Firebase: ', ''));
+    }
+  });
+
+  document.querySelector('.auth-wrap > .btn-ghost.btn-block').addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await signInWithPopup(auth, googleProvider);
+      window.location.href = 'dashboard.html';
+    } catch (err) {
+      showError(err.message.replace('Firebase: ', ''));
+    }
+  });
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) window.location.href = 'dashboard.html';
+  });
 </script>
 
 </body>
