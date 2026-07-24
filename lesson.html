@@ -67,6 +67,58 @@
 
   </div>
 </section>
+<script src="lessons-url.js"></script>
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+const lesson = getLessonById(id);
+
+if (!lesson) {
+  window.location.href = "404.html";
+} else {
+  document.getElementById("pageTitle").textContent = lesson.title + " — Ramos Academy";
+  document.getElementById("crumb").innerHTML =
+    `<a href="index.html">Home</a> / <a href="${lesson.subjectUrl}">${lesson.subject}</a> / ${lesson.course} / ${lesson.title}`;
+  document.getElementById("lessonTitle").textContent = lesson.title;
+  document.getElementById("videoBox").textContent = `▶ Lesson video (${lesson.duration})`;
+  document.getElementById("explanation").textContent = lesson.explanation;
+  document.getElementById("question").textContent = lesson.question;
+
+  document.getElementById("options").innerHTML = lesson.options.map((opt, i) =>
+    `<label><input type="radio" name="q1" value="${i}"> ${opt}</label>`
+  ).join("");
+
+  document.getElementById("prevLink").href = lesson.prev ? `lesson.html?id=${lesson.prev}` : "#";
+  document.getElementById("nextLink").href = lesson.next ? `lesson.html?id=${lesson.next}` : "#";
+
+  document.getElementById("sidebarHead").textContent = `${lesson.course}`;
+  document.getElementById("sidebarList").innerHTML = lesson.sidebar.map(s => `
+    <li class="${s.id === lesson.id ? 'active' : ''}">
+      <a href="lesson.html?id=${s.id}">
+        <span>${s.title}</span>
+        <span class="${s.done ? 'done' : ''}">${s.done ? '✓' : (s.duration || '')}</span>
+      </a>
+    </li>
+  `).join("");
+}
+
+function checkAnswer() {
+  const selected = document.querySelector('input[name="q1"]:checked');
+  const feedback = document.getElementById("feedback");
+  if (!selected) {
+    feedback.textContent = "Pick an answer first.";
+    feedback.style.color = "var(--ink)";
+    return;
+  }
+  if (parseInt(selected.value) === lesson.correct) {
+    feedback.textContent = "Correct! 🎉";
+    feedback.style.color = "green";
+  } else {
+    feedback.textContent = "Not quite — try again.";
+    feedback.style.color = "crimson";
+  }
+}
+</script>
 
 <footer>
   <div class="wrap">
