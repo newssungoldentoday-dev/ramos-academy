@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create a Class — Ramos Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot"></span>Ramos Academy</a>
+    <div></div>
+    <div></div>
+  </div>
+</nav>
+
+<div class="wrap crumb"><a href="dashboard.html">Dashboard</a> / Create a Class</div>
+
+<section>
+  <div class="wrap" style="max-width:480px">
+    <div class="section-head">
+      <h2>Create a Class</h2>
+      <p>Students join using the class code you get after creating it.</p>
+    </div>
+
+    <div id="formView">
+      <div class="field"><label>Class name</label><input type="text" id="className" placeholder="e.g. Grade 7 - Algebra"></div>
+      <div class="field"><label>Subject</label><input type="text" id="classSubject" placeholder="e.g. Mathematics"></div>
+      <button class="btn" style="margin-top:22px" onclick="createClass()">Create class</button>
+      <p id="formError" style="color:crimson;font-size:13px;margin-top:12px"></p>
+    </div>
+
+    <div id="successView" style="display:none;text-align:center">
+      <p style="color:var(--ink);font-size:14px">Class created! Share this code with your students:</p>
+      <div style="font-family:Georgia,serif;font-size:40px;letter-spacing:6px;color:var(--gold);background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px;margin:16px 0" id="codeDisplay"></div>
+      <a class="btn" href="dashboard.html">Go to dashboard</a>
+    </div>
+  </div>
+</section>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  let currentUser = null;
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) { window.location.href = 'login.html'; return; }
+    currentUser = user;
+  });
+
+  function generateCode() {
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789"; // no O/0/I/1 to avoid confusion
+    let code = "";
+    for (let i = 0; i < 6; i++) code += chars[Math.floor(Math.random() * chars.length)];
+    return code;
+  }
+
+  window.createClass = async function() {
+    const name = document.getElementById('className').value.trim();
+    const subject = document.getElementById('classSubject').value.trim();
+    const errorEl = document.getElementById('formError');
+
+    if (!name || !subject) {
+      errorEl.textContent = "Please fill in both fields.";
+      return;
+    }
+    if (!currentUser) {
+      errorEl.textContent = "You must be logged in.";
+      return;
+    }
+
+    const code = generateCode();
+
+    try {
+      await addDoc(collection(db, "classes"), {
+        name,
+        subject,
+        code,
+        teacherId: currentUser.uid,
+        teacherName: currentUser.displayName || currentUser.email,
+        createdAt: serverTimestamp()
+      });
+
+      document.getElementById('codeDisplay').textContent = code;
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('successView').style.display = 'block';
+    } catch (err) {
+      errorEl.textContent = err.message;
+    }
+  };
+</script>
+
+</body>
+</html>
