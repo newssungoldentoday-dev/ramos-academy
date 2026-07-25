@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Join a Class — Ramos Academy</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="index.html"><span class="dot"></span>Ramos Academy</a>
+    <div></div>
+    <div></div>
+  </div>
+</nav>
+
+<div class="wrap crumb"><a href="dashboard.html">Dashboard</a> / Join a Class</div>
+
+<section>
+  <div class="wrap" style="max-width:480px">
+    <div class="section-head">
+      <h2>Join a Class</h2>
+      <p>Enter the 6-character code your teacher gave you.</p>
+    </div>
+
+    <div class="field">
+      <label>Class code</label>
+      <input type="text" id="classCode" placeholder="e.g. 7K2QRM" maxlength="6" style="text-transform:uppercase;letter-spacing:4px;font-size:20px;text-align:center">
+    </div>
+    <button class="btn btn-block" style="margin-top:18px" onclick="joinClass()">Join class</button>
+    <p id="joinError" style="color:crimson;font-size:13px;margin-top:12px;text-align:center"></p>
+    <p id="joinSuccess" style="color:green;font-size:13px;margin-top:12px;text-align:center"></p>
+  </div>
+</section>
+
+<script src="firebase-config.js"></script>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+  import { getFirestore, collection, query, where, getDocs, doc, setDoc } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+  let currentUser = null;
+
+  onAuthStateChanged(auth, (user) => {
+    if (!user) { window.location.href = 'login.html'; return; }
+    currentUser = user;
+  });
+
+  window.joinClass = async function() {
+    const code = document.getElementById('classCode').value.trim().toUpperCase();
+    const errorEl = document.getElementById('joinError');
+    const successEl = document.getElementById('joinSuccess');
+    errorEl.textContent = "";
+    successEl.textContent = "";
+
+    if (code.length !== 6) {
+      errorEl.textContent = "Enter the full 6-character code.";
+      return;
+    }
+    if (!currentUser) {
+      errorEl.textContent = "You must be logged in.";
+      return;
+    }
+
+    try {
+      const q = query(collection(db, "classes"), where("code", "==", code));
+      const snap = await getDocs(q);
+
+      if (snap.empty) {
+        errorEl.textContent = "No class found with that code.";
+        return;
+      }
+
+      const classDoc = snap.docs[0];
+      await setDoc(doc(db, "classes", classDoc.id, "members", currentUser.uid), {
+        name: currentUser.displayName || currentUser.email,
+        email: currentUser.email,
+        joinedAt: new Date().toISOString()
+      });
+
+      successEl.textContent = `Joined "${classDoc.data().name}"! Redirecting...`;
+      setTimeout(() => window.location.href = 'dashboard.html', 1500);
+    } catch (err) {
+      errorEl.textContent = err.message;
+    }
+  };
+</script>
+
+</body>
+</html>
